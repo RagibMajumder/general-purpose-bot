@@ -14,7 +14,7 @@ import aiohttp
 intents = discord.Intents.default()
 intents.message_content = True  # important bc it dont work if u dont set intent to true idk why
 
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='*', intents=intents)
 
 
 
@@ -103,7 +103,7 @@ async def sally(ctx):
 @bot.command()
 async def convert(ctx, amount: float, from_currency: str, to_currency: str): # converts currency from one to another
     """
-    Usage: !convert 100 USD EUR
+    Usage: *convert 100 USD EUR
     """
     url = f"https://api.frankfurter.app/latest?amount={amount}&from={from_currency.upper()}&to={to_currency.upper()}"
     
@@ -117,7 +117,7 @@ async def convert(ctx, amount: float, from_currency: str, to_currency: str): # c
 @bot.command()
 async def gdp(ctx, country_code: str, year: int): #gets gdp of a country in a specific year
     """
-    Usage: !gdp USA 2020
+    Usage: *gdp USA 2020
     """
     try:
         data = wb.data.DataFrame('NY.GDP.MKTP.CD', economy=country_code, time=year)
@@ -211,7 +211,7 @@ async def helpme(ctx):
 @bot.command()
 async def pokedex(ctx, name: str):
     """
-    Usage: !pokedex <name>
+    Usage: *pokedex <name>
     Fetches Pokémon details from PokéAPI
     """
     url = f"https://pokeapi.co/api/v2/pokemon/{name.lower()}"
