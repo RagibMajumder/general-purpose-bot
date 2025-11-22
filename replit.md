@@ -16,6 +16,7 @@ This is a Discord bot built with discord.py that provides various utility comman
   - Configured Discord Bot workflow to run main.py
   - Bot token stored securely in Replit Secrets as TOKEN
   - Bot successfully connected to Discord gateway
+  - Configured VM deployment for 24/7 always-on operation
 
 ## Project Architecture
 - **Language**: Python 3.11
@@ -44,6 +45,16 @@ The bot runs automatically via the configured workflow. It will:
 1. Connect to Discord using the TOKEN secret
 2. Listen for commands with the `!` prefix
 3. Respond to various utility commands
+
+### Development Mode
+In development, the bot stays active for 15 minutes of inactivity before going idle. It will restart when you open the Repl.
+
+### Production Deployment
+For 24/7 operation, deploy the bot using the Deploy button:
+- **Deployment Type**: VM (Reserved Virtual Machine)
+- **Run Command**: `python main.py`
+- **Uptime**: Continuous 99.9% availability
+- The bot will maintain a constant connection to Discord and respond to commands anytime
 
 ## Files
 - `main.py` - Main bot code with all commands and event handlers
