@@ -1,5 +1,6 @@
 import qrcode
 import discord
+import os
 from discord.ext import commands
 import requests
 import wbgapi as wb
@@ -15,7 +16,7 @@ intents.message_content = True  # important bc it dont work if u dont set intent
 
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-
+bot.run(os.getenv("TOKEN"))
 
 
 def adding(a, b):
@@ -246,4 +247,4 @@ async def pokedex(ctx, name: str):
 
 
 
-bot.run("MTQ0MTE0Mzg0MTAyNDUxMjA5NA.GCvGgV.Ftw5D7yu7YzguMfF_C5wIyHKNQ79rdyuS_zGfc")
+
