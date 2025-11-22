@@ -73,12 +73,9 @@ async def multiply(ctx, a: int, b:int): # multiplies two numbers
     await ctx.send(f"Answer: {result}")
 
 @bot.command()
-async def remain(ctx, a, b): # finds remainder
-    if a or b == float:
-        await ctx.send("use integers man")
-    else:
-        result = remainder(a, b)
-        await ctx.send(f"Remainder is {result}")
+async def remain(ctx, a: int, b: int): # finds remainder
+    result = remainder(a, b)
+    await ctx.send(f"Remainder is {result}")
 
 @bot.command()
 async def ghazi(ctx):
