@@ -165,6 +165,13 @@ async def commie(ctx): # names communist leaders randomly
     comleader = random.choice(communistleaders)
     await ctx.send(f"{str(comleader)}")
 
+
+@bot.command()
+async def bump(ctx):
+    await ctx.send('/bump')
+
+
+
 @bot.command()
 async def helpme(ctx):
     helptext = {
