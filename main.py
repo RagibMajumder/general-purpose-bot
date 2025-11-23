@@ -98,6 +98,10 @@ async def sally(ctx):
     await ctx.send(f"Hi sally you are the bestest fr <@{sallyid}>")
 
 @bot.command()
+async def dingus(ctx):
+    await ctx.send('Dingus you are our favorite brazilian')
+
+@bot.command()
 async def convert(ctx, amount: float, from_currency: str, to_currency: str): # converts currency from one to another
     """
     Usage: *convert 100 USD EUR
@@ -239,9 +243,7 @@ async def pokedex(ctx, name: str):
 
     await ctx.send(embed=embed)
 
-bot.command()
-async def dingus(ctx):
-    await ctx.send('Dingus you are our favorite brazilian')
+
 
 
 bot.run(os.getenv("TOKEN"))
