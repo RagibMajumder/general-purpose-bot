@@ -116,20 +116,7 @@ async def convert(ctx, amount: float, from_currency: str, to_currency: str): # c
     except Exception:
         await ctx.send(f"{ctx.author.mention} Something went wrong. Check your currency codes (USD, EUR, GBP, etc).")
 
-@bot.command()
-async def gdp(ctx, country_code: str, year: int): #gets gdp of a country in a specific year
-    """
-    Usage: *gdp USA 2020
-    """
-    try:
-        data = wb.data.DataFrame('NY.GDP.MKTP.CD', economy=country_code, time=year)
-        gdp_value = data.iloc[0, 0]
-        if gdp_value is not None:
-            await ctx.send(f"{ctx.author.mention} The GDP of {country_code.upper()} in {year} was ${gdp_value:,.2f}")
-        else:
-            await ctx.send(f"{ctx.author.mention} No GDP data available for {country_code.upper()} in {year}.")
-    except Exception:
-        await ctx.send(f"{ctx.author.mention} you dumbass whyd you make it wrong")
+
 
 @bot.command()
 async def anticommie(ctx): #names anticommunist leaders randomly
