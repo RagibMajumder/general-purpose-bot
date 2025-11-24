@@ -77,30 +77,7 @@ async def remain(ctx, a: int, b: int): # finds remainder
     result = remainder(a, b)
     await ctx.send(f"Remainder is {result}")
 
-@bot.command()
-async def ghazi(ctx):
-    ghaziid = 1275081834622881894
-    await ctx.send(f'hi <@{ghaziid}> Pakistan zindabad')
 
-@bot.command()
-async def kyo(ctx):
-    kyoid = 1211897276906344478
-    await ctx.send(f"Kyo toaster bath <@{kyoid}>")
-
-@bot.command()
-async def kyonice(ctx):
-    kyoid = 1211897276906344478
-    await ctx.send(f"Kyo you are the sweetest most kindest person <@{kyoid}>")
-
-@bot.command()
-async def sally(ctx):
-    sallyid = 1335651836455030934
-    await ctx.send(f"Hi sally you are the bestest fr <@{sallyid}>")
-
-@bot.command()
-async def dingus(ctx):
-    dingusid = 1405598042136252447
-    await ctx.send(f"Dingus you are our favorite brazilian <@{dingusid}>")
 
 @bot.command()
 async def convert(ctx, amount: float, from_currency: str, to_currency: str): # converts currency from one to another
@@ -118,78 +95,11 @@ async def convert(ctx, amount: float, from_currency: str, to_currency: str): # c
 
 
 
-@bot.command()
-async def anticommie(ctx): #names anticommunist leaders randomly
-    anticom = ["Ronald Reagan (USA)",
-    "Margaret Thatcher (UK)",
-    "Konrad Adenauer (West Germany)",
-    "Chiang Kai-shek (Taiwan/China)",
-    "Lech Wałęsa (Poland)",
-    "Pope John Paul II (Poland)",
-    "Francisco Franco (Spain)",
-    "Ferdinand Marcos (Philippines)",
-    "Suharto (Indonesia)",
-    "Helmut Kohl (Germany)",
-    "Harry S. Truman (USA)",
-    "Winston Churchill (UK)",
-    "Nicolae Ceaușescus opponents (Romania)",
-    "José Figueres Ferrer (Costa Rica)",
-    "Syngman Rhee (South Korea)"]
-
-    leader = random.choice(anticom)
-    await ctx.send(f"{str(leader)}")
-
-
-@bot.command()
-async def commie(ctx): # names communist leaders randomly
-    communistleaders = ["Karl Marx (Germany)",
-    "Friedrich Engels (Germany)",
-    "Vladimir Lenin (Soviet Union)",
-    "Joseph Stalin (Soviet Union)",
-    "Leon Trotsky (Soviet Union)",
-    "Rosa Luxemburg (Germany/Poland)",
-    "Che Guevara (Cuba/Argentina)",
-    "Fidel Castro (Cuba)",
-    "Salvador Allende (Chile)",
-    "Hugo Chávez (Venezuela)",
-    "Evo Morales (Bolivia)",
-    "José Martí (Cuba)",
-    "Mao Zedong (China)",
-    "Ho Chi Minh (Vietnam)",
-    "Kwame Nkrumah (Ghana)",
-    "Antonio Gramsci (Italy)",
-    "Jean Jaurès (France)",
-    "Daniel Ortega (Nicaragua)",
-    "Tomáš Masaryk (Czechoslovakia)",
-    "Omar Torrijos (Panama)"]
-    comleader = random.choice(communistleaders)
-    await ctx.send(f"{str(comleader)}")
 
 
 
 
 
-@bot.command()
-async def helpme(ctx):
-    helptext = {
-        '!makeqr <url>': 'Generates a QR code from the provided URL and sends it to your DMs.',
-        '!ping': 'Bot responds with a funny message.',
-        '!inv': "Sends an invite link to the bot's server.",
-        '!talk': 'Sends you a DM saying hi.',
-        '!sum <a> <b>': 'Adds two numbers a and b.',
-        '!div <a> <b>': 'Divides number a by number b.',
-        '!multiply <a> <b>': 'Multiplies two numbers a and b.',
-        '!remain <a> <b>': 'Finds the remainder when a is divided by b.',
-        '!ghazi': 'Sends a special message to Ghazi.',
-        '!kyo': 'Tells Kyo to kill himself.',
-        '!kyonice': 'Sends a nice message to Kyo.',
-        '!sally': 'Sends a special message to Sally.',
-        '!convert <amount> <from_currency> <to_currency>': 'Converts amount from one currency to another.',
-        '!gdp <country_code> <year>': 'Gets the GDP of a country for a specific year.',
-        '!anticommie': 'Names a random anticommunist leader.',
-        '!commie': 'Names a random communist leader.',
-        '!pokedex <name>': 'Fetches details about a Pokémon from PokéAPI.'
-    }
 
     # storage
     help_message = "\n".join(f"{cmd}: {desc}" for cmd, desc in helptext.items())
