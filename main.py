@@ -46,9 +46,7 @@ async def ping(ctx): # responds with pong
     await ctx.send("Go away")
     await ctx.send("https://www.youtube.com/watch?v=IItSCWUndgM")
 
-@bot.command()
-async def inv(ctx): 
-    await ctx.send("https://discord.gg/C3yxUpPQSS")
+
 
 @bot.command()
 async def talk(ctx): # sends a dm to the user
