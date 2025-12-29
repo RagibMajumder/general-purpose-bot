@@ -16,6 +16,7 @@ def home():
 
 def run():
     port = int(os.environ.get("PORT", 8080))
+    print(f"Starting flask on {port}")
     app.run(host='0.0.0.0', port=port)
 
 def keep_alive():
