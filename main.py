@@ -114,14 +114,6 @@ async def convert(ctx, amount: float, from_currency: str, to_currency: str): # c
 
 
 
-
-
-
-
-
-
-
-
 @bot.command()
 async def pokedex(ctx, name: str):
     """
