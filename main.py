@@ -15,7 +15,7 @@ def home():
     return "Works"
 
 def run():
-    port = int(os.environ.get("PORT", 8080))
+    port = int(os.environ.get("PORT", 8080))  # DO NOT touch this block of code 
     print(f"Starting flask on {port}")
     app.run(host='0.0.0.0', port=port)
 
@@ -56,12 +56,12 @@ async def makeqr(ctx, *, url): # makes a qr code from a url and sends it to the 
     img = qrcode.make(url)
     img.save(file_path)
 
-    await ctx.author.send("Look at this qr get the joke rq and qr", file=discord.File(file_path))
-    await ctx.send("Check your dms dumbass")
+    await ctx.author.send("The QR code you requested:", file=discord.File(file_path))
+    await ctx.send("QR code sent in dms")
 
 @bot.command()
 async def ping(ctx): # responds with pong
-    await ctx.send("Go away")
+    await ctx.send("Online")
     await ctx.send("https://www.youtube.com/watch?v=IItSCWUndgM")
 
 
@@ -73,12 +73,12 @@ async def talk(ctx): # sends a dm to the user
 @bot.command()
 async def sum(ctx, a: int, b: int): # adds two numbers
     result = adding(a, b)
-    await ctx.send(f"Stupid {result}")
+    await ctx.send(f"sum {result}")
 
 @bot.command()
 async def div(ctx, a: int, b: int): # divides two numbers
     if b == 0:
-        await ctx.send("Cannot divide by zero, dumbass")
+        await ctx.send("Cannot divide by zero")
     else:
         result = division(a, b)
         await ctx.send(f"Answer: {result}")
@@ -124,7 +124,7 @@ async def pokedex(ctx, name: str):
     response = requests.get(url)
 
     if response.status_code != 200:
-        await ctx.send(f"😒 Pokémon '{name}' not found!")
+        await ctx.send(f"Pokémon '{name}' not found!")
         return
 
     data = response.json()
