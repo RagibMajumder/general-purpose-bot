@@ -63,6 +63,7 @@ async def makeqr(ctx, *, url): # makes a qr code from a url and sends it to the 
 async def ping(ctx): # responds with pong
     await ctx.send("Online")
     await ctx.send("🟢")
+    await ctx.send("testing")
 
 
 
