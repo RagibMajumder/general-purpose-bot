@@ -62,7 +62,7 @@ async def makeqr(ctx, *, url): # makes a qr code from a url and sends it to the 
 @bot.command()
 async def ping(ctx): # responds with pong
     await ctx.send("Online")
-    await ctx.send("https://www.youtube.com/watch?v=IItSCWUndgM")
+    await ctx.send("🟢")
 
 
 
