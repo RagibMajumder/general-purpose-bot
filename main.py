@@ -148,6 +148,11 @@ async def pokedex(ctx, name: str):
 
     await ctx.send(embed=embed)
 
+@bot.command()
+async def circum(ctx, radius):
+    out = 2 * 3.14 * float(radius)
+    await ctx.send(f"Circumference is {out}")
+
 
 
 
