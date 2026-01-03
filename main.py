@@ -153,7 +153,12 @@ async def circum(ctx, radius):
     out = 2 * 3.14 * float(radius)
     await ctx.send(f"Circumference is {out}")
 
-
+@bot.command()
+async def day(ctx):
+    respond = requests.get("https://date.nager.at/api/v3/publicholidays/2026/AT")
+    holidays = respond.json()
+    for holiday in holidays:
+        await ctx.send(f"{holiday['date']}: {holiday['name']}")
 
 
 bot.run(os.getenv("TOKEN"))
