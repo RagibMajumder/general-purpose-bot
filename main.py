@@ -154,7 +154,7 @@ async def circum(ctx, radius):
     await ctx.send(f"Circumference is {out}")
 
 @bot.command()
-async def day(ctx):
+async def holiday(ctx):
     respond = requests.get("https://date.nager.at/api/v3/publicholidays/2026/AT")
     holidays = respond.json()
     for holiday in holidays:
