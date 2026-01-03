@@ -148,10 +148,14 @@ async def pokedex(ctx, name: str):
 
     await ctx.send(embed=embed)
 
+
+
 @bot.command()
 async def circum(ctx, radius):
     out = 2 * 3.14 * float(radius)
     await ctx.send(f"Circumference is {out}")
+
+
 
 @bot.command()
 async def holiday(ctx):
@@ -159,6 +163,30 @@ async def holiday(ctx):
     holidays = respond.json()
     for holiday in holidays:
         await ctx.send(f"{holiday['date']}: {holiday['name']}")
+
+
+
+@bot.command()
+async def diction(ctx, word: str): 
+    url = f"https://api.dictionaryapi.dev/api/v2/entries/en/{word}"
+    
+    #dont remove aiohttp
+    async with aiohttp.ClientSession() as session:
+        async with session.get(url) as response:
+            if response.status == 200:
+                data = await response.json()
+                
+               
+                name = data[0]['word']
+                definition = data[0]['meanings'][0]['definitions'][0]['definition']
+                
+                await ctx.send(f"**{name}**: {definition}")
+            
+            elif response.status == 404:
+                await ctx.send(f"cant find word |--{word}--|.")
+            else:
+                await ctx.send("dictionary isnt working rn")
+
 
 
 bot.run(os.getenv("TOKEN"))
