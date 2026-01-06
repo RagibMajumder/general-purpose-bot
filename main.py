@@ -6,6 +6,8 @@ import requests
 import wbgapi as wb
 import random
 import aiohttp
+import asyncio
+import aiohttp
 from flask import Flask
 from threading import Thread 
 
@@ -195,6 +197,83 @@ async def diction(ctx, word: str):
                 await ctx.send(f"cant find word |--{word}--|.")
             else:
                 await ctx.send("dictionary isnt working rn")
+
+
+GOOGLE_APPS_SCRIPT_URL = os.getenv("GOOGLE_APPS_SCRIPT_URL")
+
+@bot.command()
+async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None, 
+                     price_mean: float = None, price_stddev: float = None, threshold: float = 150000):
+    """
+    Usage: *montecarlo [shares_mean] [shares_stddev] [price_mean] [price_stddev] [threshold]
+    Example: *montecarlo 7 0 67 5 150000
+    """
+    try:
+        
+        params = {}
+        if shares_mean is not None:
+            params["shares_mean"] = shares_mean
+        if shares_stddev is not None:
+            params["shares_stddev"] = shares_stddev
+        if price_mean is not None:
+            params["price_mean"] = price_mean
+        if price_stddev is not None:
+            params["price_stddev"] = price_stddev
+        if threshold is not None:
+            params["threshold"] = threshold
+        
+        # Show loading
+        loading = await ctx.send("🔄 Running Monte Carlo simulation... (10-15 seconds)")
+        
+        async with aiohttp.ClientSession() as session:
+            try:
+                async with session.post(GOOGLE_APPS_SCRIPT_URL, json=params, timeout=30) as response:
+                    if response.status == 200:
+                        data = await response.json()
+                        
+                        if not data.get("success", False):
+                            await loading.edit(content=f"❌ Error: {data.get('error', 'Unknown error')}")
+                            return
+                        
+                        results = data.get("results", {})
+                        chart_url = data.get("chartUrl")
+                        
+                        # Build embed
+                        embed = discord.Embed(
+                            title="📊 Monte Carlo Simulation Results",
+                            description="1000 trial simulation complete",
+                            color=discord.Color.blue()
+                        )
+                        
+                        embed.add_field(name="Average Revenue", value=f"${results.get('Average Revenue', 'N/A')}", inline=True)
+                        embed.add_field(name="Worst Case (5%)", value=f"${results.get('Worst Case (5%)', 'N/A')}", inline=True)
+                        embed.add_field(name="Best Case (95%)", value=f"${results.get('Best Case (95%)', 'N/A')}", inline=True)
+                        embed.add_field(name="Probability > Threshold", value=results.get("Probability > $150k", "N/A"), inline=True)
+                        
+                        inputs = results.get("Input Parameters", {})
+                        params_text = "\n".join([f"**{k}:** {v}" for k, v in inputs.items()])
+                        embed.add_field(name="Input Parameters", value=params_text or "Default", inline=False)
+                        
+                        if chart_url:
+                            embed.set_image(url=chart_url)
+                        
+                        embed.set_footer(text="Powered by Google Apps Script + Discord Bot")
+                        
+                        await loading.delete()
+                        await ctx.send(embed=embed)
+                    
+                    else:
+                        error_text = await response.text()
+                        await loading.edit(content=f"❌ Error {response.status}")
+            
+            except asyncio.TimeoutError:
+                await loading.edit(content="⏱️ Simulation timed out. Try again.")
+            except Exception as e:
+                await loading.edit(content=f"❌ Failed: {str(e)[:100]}")
+    
+    except Exception as e:
+        await ctx.send(f"❌ Error: {str(e)}")
+
 
 
 
