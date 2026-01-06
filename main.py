@@ -222,8 +222,8 @@ async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None
         if threshold is not None:
             params["threshold"] = threshold
         
-        # Show loading
-        loading = await ctx.send("🔄 Running Monte Carlo simulation... (10-15 seconds)")
+        # loading screen
+        loading = await ctx.send("Running Monte Carlo simulation... (10-15 seconds)")
         
         async with aiohttp.ClientSession() as session:
             try:
@@ -238,7 +238,7 @@ async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None
                         results = data.get("results", {})
                         chart_url = data.get("chartUrl")
                         
-                        # Build embed
+                        #Dashboard
                         embed = discord.Embed(
                             title="📊 Monte Carlo Simulation Results",
                             description="1000 trial simulation complete",
@@ -267,7 +267,7 @@ async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None
                         await loading.edit(content=f"❌ Error {response.status}")
             
             except asyncio.TimeoutError:
-                await loading.edit(content="⏱️ Simulation timed out. Try again.")
+                await loading.edit(content="Simulation timed out. Try again.")
             except Exception as e:
                 await loading.edit(content=f"❌ Failed: {str(e)[:100]}")
     
