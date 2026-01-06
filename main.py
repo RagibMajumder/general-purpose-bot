@@ -232,7 +232,7 @@ async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None
                         data = await response.json()
                         
                         if not data.get("success", False):
-                            await loading.edit(content=f"❌ Error: {data.get('error', 'Unknown error')}")
+                            await loading.edit(content=f"Error: {data.get('error', 'Unknown error')}")
                             return
                         
                         results = data.get("results", {})
@@ -240,7 +240,7 @@ async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None
                         
                         #Dashboard
                         embed = discord.Embed(
-                            title="📊 Monte Carlo Simulation Results",
+                            title="Monte Carlo Simulation Results",
                             description="1000 trial simulation complete",
                             color=discord.Color.blue()
                         )
@@ -252,12 +252,12 @@ async def montecarlo(ctx, shares_mean: float = None, shares_stddev: float = None
                         
                         inputs = results.get("Input Parameters", {})
                         params_text = "\n".join([f"**{k}:** {v}" for k, v in inputs.items()])
-                        embed.add_field(name="Input Parameters", value=params_text or "Default", inline=False)
+                        embed.add_field(name="Inputs", value=params_text or "Default", inline=False)
                         
                         if chart_url:
                             embed.set_image(url=chart_url)
                         
-                        embed.set_footer(text="Powered by Google Apps Script + Discord Bot")
+                        embed.set_footer(text="Monte Carlo Simulation")
                         
                         await loading.delete()
                         await ctx.send(embed=embed)
