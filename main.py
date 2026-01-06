@@ -82,7 +82,7 @@ async def talk(ctx): # sends a dm to the user
     await ctx.author.send('hi')
 
 @bot.command()
-async def sum(ctx, a: int, b: int): # adds two numbers
+async def sum(ctx, a: float, b: float): # adds two numbers
     result = adding(a, b)
     await ctx.send(f"sum {result}")
 
@@ -95,7 +95,7 @@ async def div(ctx, a: int, b: int): # divides two numbers
         await ctx.send(f"Answer: {result}")
 
 @bot.command()
-async def multiply(ctx, a: int, b:int): # multiplies two numbers
+async def multiply(ctx, a: float, b:float): # multiplies two numbers
     result = multiple(a, b)
     await ctx.send(f"Answer: {result}")
 
