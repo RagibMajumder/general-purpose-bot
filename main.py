@@ -11,13 +11,7 @@ import aiohttp
 from flask import Flask
 from threading import Thread 
 
-                                ## VERY IMPORTANT ##
-# when deploying on render make sure to clear build cache and deploy through manual deploy
-# or else it will send out double the code
 
-
-
-                                #####################
 
 
 app = Flask('')
