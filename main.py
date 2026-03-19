@@ -193,6 +193,94 @@ async def diction(ctx, word: str):
                 await ctx.send("dictionary isnt working rn")
 
 
+@bot.command()
+@commands.has_permissions(kick_members=True)
+async def kick(ctx, member: discord.Member, *, reason: str = None):
+    if member == ctx.author:
+        await ctx.send("You cannot kick yourself.")
+        return
+    try:
+        await member.kick(reason=reason)
+        await ctx.send(f"✅ {member} has been kicked. Reason: {reason or 'No reason provided.'}")
+    except Exception as e:
+        await ctx.send(f"❌ Could not kick {member}. {e}")
+
+
+@bot.command()
+@commands.has_permissions(ban_members=True)
+async def ban(ctx, member: discord.Member, *, reason: str = None):
+    if member == ctx.author:
+        await ctx.send("You cannot ban yourself.")
+        return
+    try:
+        await member.ban(reason=reason)
+        await ctx.send(f"✅ {member} has been banned. Reason: {reason or 'No reason provided.'}")
+    except Exception as e:
+        await ctx.send(f"❌ Could not ban {member}. {e}")
+
+
+@bot.command()
+@commands.has_permissions(manage_messages=True)
+async def clear(ctx, amount: int):
+    if amount < 1:
+        await ctx.send("Please provide a number greater than 0.")
+        return
+    deleted = await ctx.channel.purge(limit=amount + 1)
+    await ctx.send(f"🧹 Deleted {len(deleted)-1} messages.", delete_after=5)
+
+
+@bot.command()
+@commands.has_permissions(manage_roles=True)
+async def mute(ctx, member: discord.Member, *, reason: str = None):
+    if member == ctx.author:
+        await ctx.send("You cannot mute yourself.")
+        return
+
+    guild = ctx.guild
+    muted_role = discord.utils.get(guild.roles, name="Muted")
+    if muted_role is None:
+        muted_role = await guild.create_role(name="Muted", reason="Create mute role")
+        for channel in guild.channels:
+            await channel.set_permissions(muted_role, send_messages=False, speak=False, add_reactions=False)
+
+    try:
+        await member.add_roles(muted_role, reason=reason)
+        await ctx.send(f"🔇 {member} has been muted.")
+    except Exception as e:
+        await ctx.send(f"❌ Could not mute {member}. {e}")
+
+
+@bot.command()
+@commands.has_permissions(manage_roles=True)
+async def unmute(ctx, member: discord.Member):
+    guild = ctx.guild
+    muted_role = discord.utils.get(guild.roles, name="Muted")
+    if muted_role is None:
+        await ctx.send("No Muted role exists.")
+        return
+
+    if muted_role not in member.roles:
+        await ctx.send(f"{member} is not muted.")
+        return
+
+    try:
+        await member.remove_roles(muted_role)
+        await ctx.send(f"🔈 {member} has been unmuted.")
+    except Exception as e:
+        await ctx.send(f"❌ Could not unmute {member}. {e}")
+
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.MissingPermissions):
+        await ctx.send("🚫 You do not have permission to run this command.")
+    elif isinstance(error, commands.MissingRequiredArgument):
+        await ctx.send("❗ Missing arguments. Use the command with the required arguments.")
+    elif isinstance(error, commands.BadArgument):
+        await ctx.send("❗ Invalid argument type. Check mentions and ids.")
+    else:
+        await ctx.send("⚠️ An error occurred. Please check your command and try again.")
+        raise error
 
 
 bot.run(os.getenv("TOKEN"))
